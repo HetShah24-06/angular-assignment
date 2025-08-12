@@ -1,59 +1,160 @@
-# ClientAssignment
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.3.
+# Angular Client Assignment (Routing + API + Reactive Forms)
 
-## Development server
+Live Demo: **[https://angluar-assignment.vercel.app](https://angluar-assignment.vercel.app)**  
+Repo: *(add this GitHub repo URL after you push)*
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## ✨ Features
+- Angular 18+ (standalone components)
+- Client-side routing: **Home**, **API Data**, **Contact Form**
+- API service with **HttpClient** (JSONPlaceholder API)
+- Reactive Form with validation (name, email, message)
+- Instant UI update after submit (newly created post appears on API Data page)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🧰 Tech Stack
+- **Angular** (standalone components, Angular Router, Reactive Forms)
+- **TypeScript**, **SCSS**
+- **HttpClient** for API calls
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## 📦 Getting Started
 
 ```bash
-ng build
+# 1) Install dependencies
+npm install
+
+# 2) Run development server
+ng serve -o
+# App will open at: http://localhost:4200
+````
+
+---
+
+## 🗺️ App Navigation
+
+* `/` → Home (intro page)
+* `/api-data` → Fetches posts from API and lists them
+* `/contact` → Reactive form; posts data to API
+
+---
+
+## 🔌 API Details
+
+**Base URL:** [https://jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com)
+
+**Endpoints used:**
+
+* **GET** `/posts?_limit=10` → Returns 10 posts
+* **POST** `/posts` → Creates a new post
+
+Example POST body:
+
+```json
+{
+  "title": "Your Name",
+  "body": "Your message",
+  "userId": 1
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+> You can swap to your own API (e.g., a Next.js backend) by updating the `baseUrl` in
+> `src/app/core/api.service.ts`.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🧪 How to Test
+
+1. Navigate to `/api-data` → You should see \~10 posts loaded from the API.
+2. Navigate to `/contact` → Fill out the form (name, valid email, and a message with at least 10 characters).
+3. Submit the form → You should see a success message.
+4. Go back to `/api-data` → Your new message should appear at the top of the list.
+
+---
+
+## 🏗️ Build
 
 ```bash
-ng test
+ng build --configuration production
+# Output will be in: dist/client-assignment
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🚀 Deploy on Vercel
+
+### Deploy from GitHub (Recommended)
+
+1. Push this repo to GitHub.
+2. Go to [Vercel](https://vercel.com) → **New Project** → Import GitHub repo.
+3. Settings:
+
+   * Framework Preset: **Angular**
+   * Build Command: `ng build --configuration production`
+   * Output Directory: `dist/client-assignment`
+4. Deploy.
+
+**SPA Routing fix** (to prevent 404 on refresh for `/api-data` or `/contact`):
+Add `vercel.json` at repo root:
+
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+### Deploy using Vercel CLI
 
 ```bash
-ng e2e
+ng build --configuration production
+# Ensure vercel.json is in dist/client-assignment
+vercel --prod dist/client-assignment
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 🗂️ Project Structure
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+src/
+  app/
+    core/
+      api.service.ts
+    pages/
+      home/
+      api-data/
+      contact-form/
+    app.ts
+    app.routes.ts
+    app.config.ts
+styles.scss
+vercel.json
+```
+
+---
+
+## 🐞 Troubleshooting
+
+* **404 on refresh** → Ensure `vercel.json` is present at repo root (or in `dist` if deploying via CLI).
+* **HttpClient errors** → Check that `provideHttpClient()` is included in `app.config.ts`.
+* **Form data not showing in API Data** → Make sure in-memory update logic exists in `api.service.ts`.
+
+---
+
+## 📜 License
+
+MIT
+
+```
+
+---
+
+If you want, I can also give you the **exact Git commands** to push your whole Angular project (with `.gitignore` and this `README.md`) to GitHub so it’s instantly linked to Vercel.  
+Do you want me to prepare those commands next?
+```
