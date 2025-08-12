@@ -1,0 +1,12 @@
+<section class="card">
+  <h2>API Data</h2>
+  <p *ngIf="loading">Loading...</p>
+  <p class="help" *ngIf="error">{{ error }}</p>
+
+  <ul class="grid" *ngIf="!loading && !error">
+    <li *ngFor="let p of posts" class="card">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.body }}</p>
+    </li>
+  </ul>
+</section>
